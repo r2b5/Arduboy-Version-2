@@ -4,16 +4,12 @@ Arduboy Version 2 is a custom-built handheld game console based on the original 
 
 Unlike the original design, this version integrates the Arduino Nano's **ATmega32U4** microcontroller directly onto a custom PCB. It also features a USB Type-C connector for power and programming, an integrated Li-ion battery charging circuit, and a larger OLED display.
 
----
-
 ## Hardware
 
 - **Microcontroller:** ATmega32U4-AU
 - **Display:** 2.42" 128×64 SPI OLED (Joy-it COM-OLED2.42, SSD1309 controller)
 - Integrated Li-ion battery charging circuit MCP73831
 - Custom-designed PCB
-
----
 
 ## Software
 
@@ -22,8 +18,6 @@ Unlike the original design, this version integrates the Arduino Nano's **ATmega3
 
 > **Note:**  
 > The game source code is **not my own work**. It consists of example projects that have been adapted to run on this hardware implementation.
-
----
 
 ## Flashing the Bootloader
 
@@ -42,8 +36,6 @@ The board provides the standard **6-pin Arduino ISP header**. Before burning the
 
 After wiring the programmer, use **Tools → Burn Bootloader** in the Arduino IDE.
 
----
-
 ## Required Changes to `Arduboy2Core.cpp`
 
 Since this hardware differs from the original Arduboy, a small modification to `Arduboy2Core.cpp` is required for the SSD1309 display to render correctly.
@@ -58,15 +50,11 @@ Replace the column and page address initialization with:
 0x22, 0x00, PAGE_ADDRESS_END
 ```
 
----
-
 ## Project Goals
 
 The primary objective of this project is to teach apprentices and interns the fundamentals of microcontroller programming while providing a practical understanding of how embedded electronic systems work.
 
 In addition, the project serves as a foundation for developing more advanced retro gaming consoles and other embedded systems.
-
----
 
 ## Credits
 
