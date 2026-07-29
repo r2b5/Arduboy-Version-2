@@ -1,0 +1,44 @@
+arduino-cli.exe
+arduino-cli.zip
+build/
+*.hex
+*.elf
+*.eep
+.vscode/
+
+# Flashcart Workflow Scripts
+download_cart.py
+flashcart-builder.py
+flashcart-writer.py
+build_cart.py
+make_title.py
+
+# Flashcart Configuration & Binaries
+my_flashcart.csv
+mygames-index.csv
+*.bin
+ElenasGame.arduboy
+info.json
+title_elena.png
+
+# Downloaded Community Game Assets
+Action/
+Adventure/
+Application/
+Arcade/
+Demos/
+Misc/
+Multi/
+Platformer/
+Puzzle/
+RPG/
+Racing/
+Shooter/
+Sports/
+Tools/
+arg/
+category-screens/
+arduboy-fx-loader.png
+
+# Agent Workflows
+.agents/
