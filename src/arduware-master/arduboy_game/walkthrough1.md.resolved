@@ -1,0 +1,28 @@
+# Arduboy Game Improvements
+
+During this session, we made several improvements and fixes to "ELENA'S GAME" on the Arduboy:
+
+## 1. True Randomness Added
+- **Issue**: The random number generator was being seeded with `millis()` during [setup()](file:///c:/Users/mothb/OneDrive/Documents/Arduino/arduboy_game/arduboy_game.ino#200-207), which always resulted in the exact same seed because the Arduboy takes a fixed amount of time to boot.
+- **Fix**: Replaced `srand(millis())` with `arduboy.initRandomSeed()`, which uses analog noise from an unconnected pin to generate a truly random seed. We also switched from the standard C `rand()` function to Arduino's native `random()` function.
+
+## 2. Fixed Mini-Game Selection
+- **Issue**: The `currentMiniGame` was not randomizing between the Arrows Game and Simon Game. It was getting stuck on Simon.
+- **Fix**: The `NUM_GAMES` enum value was counting two temporarily commented-out games (`GAME_SLICE_HALF` and `GAME_CATCH_RULER`). Because the randomizer was picking numbers up to 3 (instead of 1), and there was no fallback logic for 2 or 3 in the `switch` statement, it defaulted to whatever game was last played (Simon). We removed the commented-out games from the `enum` so `NUM_GAMES` correctly equals 2.
+
+## 3. Arrows Game Improvements
+- **Issue 1**: Arrows would spawn but not have time to finish falling before the minigame ended.
+- **Fix 1**: Adjusted the spawning logic so it stops generating arrows once the total is reached, and changed the game-end condition to wait until the very last arrow has fully despawned (`arrowsGame_spawnPos[0] == -1`).
+- **Issue 2**: The hit/miss animations (bubbleburst and X) would bleed into the next round if the game ended while they were playing. The first arrow of the next round would also spawn immediately.
+- **Fix 2**: Added checks to ensure the game only ends when `arrowsGame_bubblePos[0] == -1` and `arrowsGame_XPos[0] == -1`. Also added logic to reset the `arrowsGame_lastSpawnTime` to `0` upon exiting the state.
+
+## 4. Simon Game Fail Screen
+- **Enhancement**: Added a failure screen that pauses to display "FAIL!" for 2 seconds.
+- **Implementation**: We added `simonGame_failedState` and `simonGame_failedTime` variables to track mistakes. If the player presses the wrong button during playback, the state is triggered. The game now correctly transitions back to the intermission without a fail screen if the player simply runs out of time (which is treated as a success state).
+
+## 5. Spinning Coin Sprite
+- **Enhancement**: Added a small coin sprite that spins next to the score counter.
+- **Implementation**: Created a `PROGMEM` byte array called `coin_animation` with two 8x8 frames. We learned that `Sprites::drawOverwrite()` expects the width and height of a *single frame*, so we set the array header to `8, 8` rather than `16, 8`. We added a timer to toggle the frames every 150ms and dynamically calculate the X-position based on the length of the score string.
+
+### Compilation
+We set up `arduino-cli` directly via the terminal and successfully installed the `Arduboy2` library and `arduino:avr` core package. We compiled and verified all changes locally, flashing them directly to the connected Arduboy on `COM3`.
