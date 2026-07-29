@@ -1,3 +1,5 @@
+<img src=pics/Arduboy.jpg width=200>
+
 # Arduboy Version 2
 
 Arduboy Version 2 is a custom-built handheld game console based on the original **DIY Mini Retro Game Console** by **MaDDy Regal** (Uttar Pradesh, India), published on Instructables.
@@ -18,6 +20,8 @@ Unlike the original design, this version integrates the Arduino Nano's **ATmega3
 
 > **Note:**  
 > The game source code is **not my own work**. It consists of example projects that have been adapted to run on this hardware implementation.
+>
+> <img src=pics/Rooftop.jpg width=200>
 
 ## Flashing the Bootloader
 
