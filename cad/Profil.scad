@@ -2,7 +2,7 @@
 hoehe    = 20.8;
 staerke  = 1;
 laenge   = 100;
-
+radius = 2;
 loch_d   = 3.5;   // Lochdurchmesser
 
 module e_profil_2d() {
@@ -10,7 +10,17 @@ module e_profil_2d() {
 
         union() {
             // Langer Schenkel / Rücken
-            square([1, hoehe]);
+            translate([-1,0])         
+            square([2, hoehe]);
+            
+             hull() {
+                translate([-1, radius])
+                    circle(r = radius, $fn = 64);
+
+                translate([-1, hoehe - radius])
+                    circle(r = radius, $fn = 64);
+            }
+            
 
             // Unterer Schenkel
             square([4, 1]);
@@ -34,7 +44,7 @@ module e_profil_2d() {
 
         // Loch mittig im langen 5-mm-Schenkel
         translate([
-            6 / 2,
+            2,
             hoehe / 2
         ])
             circle(d = loch_d, $fn = 64);
